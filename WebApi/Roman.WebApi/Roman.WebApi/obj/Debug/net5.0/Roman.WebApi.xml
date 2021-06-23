@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Roman.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:Roman.WebApi.Controllers.EquipeController.Post(Roman.WebApi.Domain.Equipe)">
+            <summary>
+            Cadastra uma nova equipe
+            </summary>
+            <param name="NovaEquipe">Objeto do tipo Equipe</param>
+            <returns>StatusCode 201 - Created</returns>
+        </member>
+        <member name="M:Roman.WebApi.Controllers.EquipeController.Get">
+            <summary>
+            Lista todas as equipes
+            </summary>
+            <returns>Status Code 200 - Ok E Lista de equipes</returns>
+        </member>
+        <member name="M:Roman.WebApi.Controllers.EquipeController.GetById(System.Int32)">
+            <summary>
+            Busca uma equipe pelo Id
+            </summary>
+            <param name="Id">Id da equipe buscada</param>
+            <returns>Status Code 200 - Ok E Uma equipe</returns>
+        </member>
+        <member name="M:Roman.WebApi.Controllers.EquipeController.Put(System.Int32,Roman.WebApi.Domain.Equipe)">
+            <summary>
+            Atualiza uma equipe
+            </summary>
+            <param name="Id"> Id da equipe que será atualizada</param>
+            <param name="EquipeAtualizada">Objeto do tipo equipe contendo as novas informações</param>
+            <returns>Status Code 204 - No Content</returns>
+        </member>
+        <member name="M:Roman.WebApi.Controllers.EquipeController.Delete(System.Int32)">
+            <summary>
+            Exclui uma equipe
+            </summary>
+            <param name="Id">Id da equipe que será excluída</param>
+            <returns>Status Code 204 - No Content</returns>
+        </member>
+    </members>
+</doc>
