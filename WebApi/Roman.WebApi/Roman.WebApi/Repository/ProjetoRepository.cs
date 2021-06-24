@@ -32,20 +32,8 @@ namespace Roman.WebApi.Repository
         {
             return ctx.Projetos
                 
-            .Include(x => x.IdTemaNavigation)
-
-            .Select(x => new Projeto{
-                IdProjeto = x.IdProjeto,
-                NomeProjeto = x.NomeProjeto,
-                Descricao = x.Descricao,
-
-                IdTemaNavigation = new Tema{
-                    NomeTema = x.IdTemaNavigation.NomeTema
-                }
-            })
-
-
-            
+            .Include(x => x.IdTemaNavigation)  
+                 
             .ToList();
         }
 

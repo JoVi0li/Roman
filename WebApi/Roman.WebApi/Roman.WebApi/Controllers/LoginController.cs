@@ -45,7 +45,10 @@ namespace Roman.WebApi.Controllers
 
                     new Claim(JwtRegisteredClaimNames.Jti, UsuarioBuscado.IdUsuario.ToString()),
 
-                    new Claim(ClaimTypes.Role, UsuarioBuscado.IdTipoUsuario.ToString())
+                    new Claim("role", usuario.IdUsuario.ToString()),
+
+                    new Claim("nome", usuario.Nome)                 
+
                 };
 
                 var Key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("Roman-Chave-Autenticacao"));

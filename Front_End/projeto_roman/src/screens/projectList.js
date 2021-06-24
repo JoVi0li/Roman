@@ -8,9 +8,11 @@ export default class ProjectList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projectList: []
+            projectList: [],
+            nome: ''
+            
         }
-    }
+    }    
 
     // função para listar os projetos
     getProjects = async () => {
@@ -35,11 +37,12 @@ export default class ProjectList extends Component {
         console.warn(this.state.projectList)
 
     }
+    
 
     // faz a chamada para a função de listar quando a tela é renderizada
     componentDidMount() {
 
-        this.getProjects();
+        this.getProjects();        
 
     }
 
@@ -67,8 +70,7 @@ export default class ProjectList extends Component {
                         style={styles.tabBarIcon}
                     />
                     </TouchableOpacity>
-
-                        <Text style={styles.textProfessor}>Olá professor João !</Text>
+                        <Text style={styles.textProfessor}>Olá professor {this.state.nome} </Text>
                 </View>
 
                 {/* Lista */}
@@ -92,9 +94,10 @@ export default class ProjectList extends Component {
         <View style={styles.flatItemRow}>
 
             <View style={styles.flatItemContainer}>
-                <Text style={styles.flatItemTitle}>{item.NomeProjeto}</Text>
-                {/* <Text style={styles.flatItemInfo}>{item.IdTemaNavigation.NomeTema}</Text> */}
-                <Text style={styles.flatItemInfo}>{item.Descricao}</Text>
+                <Text style={styles.flatItemTitle}>{item.nomeProjeto}</Text>
+                <Text style={styles.flatItemInfo}>Tema: {item.idTemaNavigation.nomeTema}</Text>
+                <Text style={styles.flatItemInfo}>Descrição: {item.descricao}</Text>
+            <View style={styles.mainHeaderLine} />
             </View>
 
         </View>
@@ -176,7 +179,7 @@ const styles = StyleSheet.create({
 
     flatItemTitle: {
         fontSize: 16,
-        color: 'black',
+        color: '#561B75',
         fontFamily: 'Open Sans Light'
     },
 
@@ -184,8 +187,9 @@ const styles = StyleSheet.create({
         fontSize: 12,
         // #RRGGBB
         // #RGB
-        color: '#999',
-        lineHeight: 20
+        color: '#B338F5',
+        lineHeight: 20,
+        fontFamily: 'Open Sans Light'
     }
 
 });
