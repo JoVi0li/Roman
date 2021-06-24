@@ -13,21 +13,21 @@ export default class Login extends Component {
         }
     }
 
-    login = async () => {
+     login = async () => {
 
-        const response = await api.post('/login', {
+        //  const response = await api.post('/login', {
 
-            email: this.state.email,
-            senha: this.state.senha
+        //      email: this.state.email,
+        //      senha: this.state.senha
 
-        })
+        // })
 
-        const token = response.data.token
+        //  const token = response.data.token
 
-        await AsyncStorage.setItem('userToken', token)
+        //  await AsyncStorage.setItem('userToken', token)
 
-        this.props.navigation.navigate('Main')
-    }
+         this.props.navigation.navigate('Main')
+     }
 
     render() {
 

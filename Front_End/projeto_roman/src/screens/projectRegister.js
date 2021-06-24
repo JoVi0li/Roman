@@ -79,12 +79,20 @@ export default class ProjectRegister extends Component {
 
                     <View style={styles.mainHeaderLine} />
 
+                    <TouchableOpacity                        
+                        onPress={this.logout}
+                    >
                     <Image
                         source={require('../../assets/img/logout1.png')}
                         style={styles.tabBarIcon}
                     />
+                    </TouchableOpacity>
+
+                    <Text style={styles.textProfessor}>Cadastre um novo projeto.</Text>
 
                 </View>
+
+                
 
                 {/* Formulário para o cadastro e buttom */}
                 <View style={styles.mainHeader}>
@@ -92,7 +100,7 @@ export default class ProjectRegister extends Component {
                     <TextInput
                         style={styles.inputRegister}
                         placeholder='Título'
-                        placeholderTextColor='#8D2DC2'
+                        placeholderTextColor='#B338F5'
                         keyboardType='text'
                         onChangeText={NomeProjeto => this.setState({ NomeProjeto })}
                     />
@@ -100,7 +108,7 @@ export default class ProjectRegister extends Component {
                     <TextInput
                         style={styles.inputRegister}
                         placeholder='Tema'
-                        placeholderTextColor='#8D2DC2'
+                        placeholderTextColor='#B338F5'
                         keyboardType='text'
                         onChangeText={NomeTema => this.setState({ NomeTema })}
                     />
@@ -108,7 +116,7 @@ export default class ProjectRegister extends Component {
                     <TextInput
                         style={styles.inputRegister}
                         placeholder='Descrição'
-                        placeholderTextColor='#8D2DC2'
+                        placeholderTextColor='#B338F5'
                         keyboardType='text'
                         onChangeText={Descricao => this.setState({ Descricao })}
                     />
@@ -138,6 +146,13 @@ export default class ProjectRegister extends Component {
 
 const styles = StyleSheet.create({
 
+    textProfessor : {
+        color: '#B338F5',
+        paddingTop: 15,
+        fontFamily: 'Open Sans',
+        fontSize: 16
+    },
+
     main: {
         flex: 1,
         backgroundColor: '#FFF'
@@ -161,7 +176,7 @@ const styles = StyleSheet.create({
         width: 25,
         height: 25,
         marginTop: 15,
-        tintColor: '#8D2DC2'
+        tintColor: '#B338F5'
     },
 
     imgBtnRegister: {
@@ -182,7 +197,7 @@ const styles = StyleSheet.create({
     mainHeaderText: {
         fontSize: 16,
         letterSpacing: 2,
-        color: '#8D2DC2',
+        color: '#B338F5',
         fontFamily: 'Open Sans'
     },
     // linha de separação do cabeçalho
@@ -240,9 +255,10 @@ const styles = StyleSheet.create({
         width: 200,
         marginBottom: 40,
         fontSize: 16,
-        color: '#8D2DC2',
-        borderColor: '#8D2DC2',
-        borderBottomWidth: 2
+        color: '#B338F5',
+        borderColor: '#B338F5',
+        borderBottomWidth: 1,
+        fontFamily: 'Open Sans'
     },
 
     btnRegister: {
@@ -254,13 +270,14 @@ const styles = StyleSheet.create({
         borderColor: '#8D2DC2',
         borderWidth: 1,
         borderRadius: 4,
+        
     },
 
     btnLoginRegister: {
         fontSize: 12,
         color: '#FFF',
         letterSpacing: 6,
-        textTransform: 'uppercase'
+        textTransform: 'uppercase'        
     }
 
 });

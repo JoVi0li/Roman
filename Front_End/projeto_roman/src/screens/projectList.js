@@ -12,29 +12,32 @@ export default class ProjectList extends Component {
         }
     }
 
-    // função para listar os projetos
-    getProjects = async () => {
+    // // função para listar os projetos
+    // getProjects = async () => {
 
-        // constante para armazenar a resposta da requisição
-        const resposta = await api.get('/projetos', {
+    //     // constante para armazenar o valor do token
+    //     const valorToken = await AsyncStorage.getItem('userToken');
 
-            // autorização
-            headers: {
-                'Authorization': 'Bearer ' + valorToken
-            }
-        })
+    //     // constante para armazenar a resposta da requisição
+    //     const resposta = await api.get('/projetos', {
 
-        // atualiza o state da lista com a resposta da requisição
-        this.setState({ projectList: resposta.data })
+    //         // autorização
+    //         headers: {
+    //             'Authorization': 'Bearer ' + valorToken
+    //         }
+    //     })
 
-    }
+    //     // atualiza o state da lista com a resposta da requisição
+    //     this.setState({ projectList: resposta.data })
 
-    // faz a chamada para a função de listar quando a tela é renderizada
-    componentDidMount() {
+    // }
 
-        this.getProjects();
+    // // faz a chamada para a função de listar quando a tela é renderizada
+    // componentDidMount() {
 
-    }
+    //     this.getProjects();
+
+    // }
 
 
     render() {
@@ -51,12 +54,17 @@ export default class ProjectList extends Component {
                     </View>
 
                     <View style={styles.mainHeaderLine} />
-
+                    
+                    <TouchableOpacity                        
+                        onPress={this.logout}
+                    >
                     <Image
                         source={require('../../assets/img/logout1.png')}
                         style={styles.tabBarIcon}
                     />
+                    </TouchableOpacity>
 
+                        <Text style={styles.textProfessor}>Olá professor João !</Text>
                 </View>
 
                 {/* Lista */}
@@ -91,9 +99,16 @@ export default class ProjectList extends Component {
 
 const styles = StyleSheet.create({
 
+    textProfessor : {
+        color: '#B338F5',
+        paddingTop: 15,
+        fontFamily: 'Open Sans',
+        fontSize: 16
+    },
+
     main: {
         flex: 1,
-        backgroundColor: '#F1F1F1'
+        backgroundColor: '#FFF'
     },
 
     // cabeçalho
@@ -112,14 +127,14 @@ const styles = StyleSheet.create({
         width: 25,
         height: 25,
         marginTop: 15,
-        tintColor: '#8D2DC2'
+        tintColor: '#B338F5'
     },
 
     // texto do cabeçalho
     mainHeaderText: {
         fontSize: 16,
         letterSpacing: 2,
-        color: '#8D2DC2',
+        color: '#B338F5',
         fontFamily: 'Open Sans'
     },
 
@@ -147,7 +162,7 @@ const styles = StyleSheet.create({
     flatItemRow: {
         flexDirection: 'row',
         borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
+        borderBottomColor: '#FFF',
         marginTop: 30
     },
 
