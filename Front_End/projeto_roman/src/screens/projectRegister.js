@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import api from '../services/api';
@@ -10,56 +10,59 @@ export default class ProjectRegister extends Component {
         this.state = {
             NomeProjeto: '',
             NomeTema: '',
-            description: '',
-            Descricao: false
+            Descricao: '',
+            isLoading: false
         }
     }
 
     // função para cadastrar um projeto
-    postProjects = async () => {        
+    postProjects = async () => {
 
         // requisição em andamento
         this.setState({ isLoading: true });
 
         // corpo da requisição
         let project = {
-            NomeProjeto :  this.state.NomeProjeto,
-            NomeTema : this.state.NomeTema,
-            Descricao : this.state.Descricao
+            NomeProjeto: this.state.NomeProjeto,
+            NomeTema: this.state.NomeTema,
+            Descricao: this.state.Descricao
         }
+
+        // constante para armazenar o valor do token
+        const valorToken = await AsyncStorage.getItem('userToken');
 
         // chamada para api - método cadastrar e o corpo da requisição
         await api.post('/projetos', project, {
-            headers  : {
+            headers: {
                 'Authorization': 'Bearer ' + valorToken
             }
         })
-        
-        // verifica a resposta da requisição
-        .then(resposta => {
 
-            // caso seja 201
-            if (resposta.status === 201) {
+            // verifica a resposta da requisição
+            .then(resposta => {
 
-                // retorna uma mensagem 
-                console.warn('Projeto cadastrado !')
-                
+                // caso seja 201
+                if (resposta.status === 201) {
+
+                    // retorna uma mensagem 
+                    console.warn('Projeto cadastrado !')
+
+                    // requisição finalizada
+                    this.setState({ isLoading: false })
+                }
+            })
+
+            // caso ocorra um erro
+            .catch(erro => {
+
+                // exibe uma mensagem 
+                console.warn(erro)
+
                 // requisição finalizada
-                this.setState({ isLoading : false})
-            }
-        })
+                this.setState({ isLoading: false })
+            })
 
-        // caso ocorra um erro
-        .catch(erro => {
-
-            // exibe uma mensagem 
-            console.warn(erro)
-
-            // requisição finalizada
-            this.setState({ isLoading : false})
-        })
-
-    };    
+    };
 
     // renderiza a tela
     render() {
@@ -82,10 +85,10 @@ export default class ProjectRegister extends Component {
                     />
 
                 </View>
-                
+
                 {/* Formulário para o cadastro e buttom */}
                 <View style={styles.mainHeader}>
-                    
+
                     <TextInput
                         style={styles.inputRegister}
                         placeholder='Título'

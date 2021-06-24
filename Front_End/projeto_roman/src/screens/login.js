@@ -9,7 +9,7 @@ export default class Login extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            senha: ''
         }
     }
 
@@ -18,7 +18,7 @@ export default class Login extends Component {
         const response = await api.post('/login', {
 
             email: this.state.email,
-            password: this.state.password
+            senha: this.state.senha
 
         })
 
