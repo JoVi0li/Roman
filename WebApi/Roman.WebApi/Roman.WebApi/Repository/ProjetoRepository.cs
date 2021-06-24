@@ -67,6 +67,15 @@ namespace Roman.WebApi.Repository
 
                 ctx.SaveChanges();
             }
+
+            if (ProjetoAtualizado.Descricao != null)
+            {
+                ProjetoBuscado.Descricao = ProjetoAtualizado.Descricao;
+
+                ctx.Projetos.Update(ProjetoBuscado);
+
+                ctx.SaveChanges();
+            }
         }
     }
 }

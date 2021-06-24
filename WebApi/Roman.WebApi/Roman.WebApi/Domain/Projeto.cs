@@ -11,6 +11,7 @@ namespace Roman.WebApi.Domain
         public int? IdUsuario { get; set; }
         public string NomeProjeto { get; set; }
         public int? IdTema { get; set; }
+        public string Descricao { get; set; }
 
         public virtual Tema IdTemaNavigation { get; set; }
         public virtual Usuario IdUsuarioNavigation { get; set; }

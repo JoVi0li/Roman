@@ -40,11 +40,11 @@ namespace Roman.WebApi.Contexts
             modelBuilder.Entity<Equipe>(entity =>
             {
                 entity.HasKey(e => e.IdEquipe)
-                    .HasName("PK__Equipe__D8052412C432C5E2");
+                    .HasName("PK__Equipe__D80524124878D3A3");
 
                 entity.ToTable("Equipe");
 
-                entity.HasIndex(e => e.NomeEquipe, "UQ__Equipe__55A6F17FA94341BA")
+                entity.HasIndex(e => e.NomeEquipe, "UQ__Equipe__55A6F17F50F07270")
                     .IsUnique();
 
                 entity.Property(e => e.NomeEquipe)
@@ -56,12 +56,20 @@ namespace Roman.WebApi.Contexts
             modelBuilder.Entity<Projeto>(entity =>
             {
                 entity.HasKey(e => e.IdProjeto)
-                    .HasName("PK__Projeto__B9E1BB5C842F2927");
+                    .HasName("PK__Projeto__B9E1BB5CBCEDA849");
 
                 entity.ToTable("Projeto");
 
-                entity.HasIndex(e => e.NomeProjeto, "UQ__Projeto__2C23A026D762234B")
+                entity.HasIndex(e => e.Descricao, "UQ__Projeto__008BA9EF1740DFCE")
                     .IsUnique();
+
+                entity.HasIndex(e => e.NomeProjeto, "UQ__Projeto__2C23A026A14FAB43")
+                    .IsUnique();
+
+                entity.Property(e => e.Descricao)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.NomeProjeto)
                     .IsRequired()
@@ -71,33 +79,25 @@ namespace Roman.WebApi.Contexts
                 entity.HasOne(d => d.IdTemaNavigation)
                     .WithMany(p => p.Projetos)
                     .HasForeignKey(d => d.IdTema)
-                    .HasConstraintName("FK__Projeto__IdTema__47DBAE45");
+                    .HasConstraintName("FK__Projeto__IdTema__4BAC3F29");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Projetos)
                     .HasForeignKey(d => d.IdUsuario)
-                    .HasConstraintName("FK__Projeto__IdUsuar__46E78A0C");
+                    .HasConstraintName("FK__Projeto__IdUsuar__4AB81AF0");
             });
 
             modelBuilder.Entity<Tema>(entity =>
             {
                 entity.HasKey(e => e.IdTema)
-                    .HasName("PK__Tema__9F3A4117BC591CA4");
+                    .HasName("PK__Tema__9F3A411750BF8BBF");
 
                 entity.ToTable("Tema");
 
-                entity.HasIndex(e => e.Descricao, "UQ__Tema__008BA9EFA7A12685")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.NomeTema, "UQ__Tema__795998E24FBB6788")
+                entity.HasIndex(e => e.NomeTema, "UQ__Tema__795998E2167C31BF")
                     .IsUnique();
 
                 entity.Property(e => e.Ativo).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.Descricao)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.NomeTema)
                     .IsRequired()
@@ -108,11 +108,11 @@ namespace Roman.WebApi.Contexts
             modelBuilder.Entity<TipoUsuario>(entity =>
             {
                 entity.HasKey(e => e.IdTipoUsuario)
-                    .HasName("PK__TipoUsua__CA04062B29E88EA9");
+                    .HasName("PK__TipoUsua__CA04062B840E020A");
 
                 entity.ToTable("TipoUsuario");
 
-                entity.HasIndex(e => e.NomeTipoUsuario, "UQ__TipoUsua__C6FB90A80F3184E4")
+                entity.HasIndex(e => e.NomeTipoUsuario, "UQ__TipoUsua__C6FB90A820C77E1C")
                     .IsUnique();
 
                 entity.Property(e => e.NomeTipoUsuario)
@@ -124,11 +124,11 @@ namespace Roman.WebApi.Contexts
             modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.HasKey(e => e.IdUsuario)
-                    .HasName("PK__Usuario__5B65BF973AE9E89A");
+                    .HasName("PK__Usuario__5B65BF97883DDAD4");
 
                 entity.ToTable("Usuario");
 
-                entity.HasIndex(e => e.Email, "UQ__Usuario__A9D1053419BDC96E")
+                entity.HasIndex(e => e.Email, "UQ__Usuario__A9D105344D551CF4")
                     .IsUnique();
 
                 entity.Property(e => e.Email)
@@ -150,12 +150,12 @@ namespace Roman.WebApi.Contexts
                 entity.HasOne(d => d.IdEquipeNavigation)
                     .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.IdEquipe)
-                    .HasConstraintName("FK__Usuario__IdEquip__3D5E1FD2");
+                    .HasConstraintName("FK__Usuario__IdEquip__412EB0B6");
 
                 entity.HasOne(d => d.IdTipoUsuarioNavigation)
                     .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.IdTipoUsuario)
-                    .HasConstraintName("FK__Usuario__IdTipoU__3E52440B");
+                    .HasConstraintName("FK__Usuario__IdTipoU__4222D4EF");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -8,6 +8,8 @@ namespace Roman.WebApi.Interface
 {
     interface IUsuarioRepository
     {
+        Usuario Login(string Email, string Senha);
+
         void Create(Usuario NovoUsuario); 
         List<Usuario> Read(); 
         Usuario ReadById(int Id);

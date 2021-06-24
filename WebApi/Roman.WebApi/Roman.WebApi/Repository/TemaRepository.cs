@@ -49,15 +49,6 @@ namespace Roman.WebApi.Repository
                 ctx.SaveChanges();
             }
 
-            if (TemaAtualizado.Descricao != null)
-            {
-                TemaBuscado.Descricao = TemaAtualizado.Descricao;
-
-                ctx.Temas.Update(TemaBuscado);
-
-                ctx.SaveChanges();
-            }
-
             if (TemaAtualizado.Ativo != null)
             {
                 TemaBuscado.Ativo = TemaAtualizado.Ativo;

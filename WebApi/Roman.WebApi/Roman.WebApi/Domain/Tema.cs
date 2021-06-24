@@ -14,7 +14,6 @@ namespace Roman.WebApi.Domain
 
         public int IdTema { get; set; }
         public string NomeTema { get; set; }
-        public string Descricao { get; set; }
         public bool? Ativo { get; set; }
 
         public virtual ICollection<Projeto> Projetos { get; set; }
