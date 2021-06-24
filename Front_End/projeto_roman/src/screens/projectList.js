@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, ScrollView, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import api from '../services/api';
@@ -8,11 +8,21 @@ export default class ProjectList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projectList: [],
-            nome: ''
-            
+            projectList: []
+
         }
-    }    
+    }
+
+    logout = async () => {
+        try {
+            await AsyncStorage.removeItem('userToken');
+            this.props.navigation.navigate('Login');
+        } catch (error) {
+            console.warn(error);
+        }
+    };
+
+
 
     // função para listar os projetos
     getProjects = async () => {
@@ -37,12 +47,12 @@ export default class ProjectList extends Component {
         console.warn(this.state.projectList)
 
     }
-    
+
 
     // faz a chamada para a função de listar quando a tela é renderizada
     componentDidMount() {
 
-        this.getProjects();        
+        this.getProjects();
 
     }
 
@@ -61,20 +71,35 @@ export default class ProjectList extends Component {
                     </View>
 
                     <View style={styles.mainHeaderLine} />
-                    
-                    <TouchableOpacity                        
+
+                    <TouchableOpacity
                         onPress={this.logout}
                     >
-                    <Image
-                        source={require('../../assets/img/logout1.png')}
-                        style={styles.tabBarIcon}
-                    />
+                        <Image
+                            source={require('../../assets/img/logout1.png')}
+                            style={styles.tabBarIcon}
+                        />
                     </TouchableOpacity>
-                        <Text style={styles.textProfessor}>Olá professor {this.state.nome} </Text>
+
+                    <View>
+
+                        <TouchableOpacity
+                            onPress={this.getProjects}
+                        >
+                            <Image
+                                source={require('../../assets/img/update.png')}
+                                style={styles.tabBarIcon}
+                            />
+                        </TouchableOpacity>
+
+                    </View>
+
+
+
                 </View>
 
                 {/* Lista */}
-                <View style={styles.mainBody}>
+                <ScrollView style={styles.mainBody}>
 
                     <FlatList
                         contentContainerStyle={styles.mainBodyContent}
@@ -83,7 +108,7 @@ export default class ProjectList extends Component {
                         renderItem={this.renderItem}
                     />
 
-                </View>
+                </ScrollView>
 
             </View>
         );
@@ -97,7 +122,7 @@ export default class ProjectList extends Component {
                 <Text style={styles.flatItemTitle}>{item.nomeProjeto}</Text>
                 <Text style={styles.flatItemInfo}>Tema: {item.idTemaNavigation.nomeTema}</Text>
                 <Text style={styles.flatItemInfo}>Descrição: {item.descricao}</Text>
-            <View style={styles.mainHeaderLine} />
+                <View style={styles.mainHeaderLine} />
             </View>
 
         </View>
@@ -106,7 +131,7 @@ export default class ProjectList extends Component {
 
 const styles = StyleSheet.create({
 
-    textProfessor : {
+    textProfessor: {
         color: '#B338F5',
         paddingTop: 15,
         fontFamily: 'Open Sans',

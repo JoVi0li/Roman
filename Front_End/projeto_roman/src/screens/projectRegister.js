@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from '@react-native-picker/picker';
 
 import api from '../services/api';
 
@@ -9,10 +10,23 @@ export default class ProjectRegister extends Component {
         super(props);
         this.state = {
             NomeProjeto: '',
-            NomeTema: '',
+            IdTema: 0,
             Descricao: '',
             isLoading: false
         }
+    }
+
+    logout = async () => {
+        try {
+            await AsyncStorage.removeItem('userToken');
+            this.props.navigation.navigate('Login');
+        } catch (error) {
+            console.warn(error);
+        }
+    };
+
+    atualizaTema = (itemValue) => {
+        this.setState({ IdTema: itemValue })
     }
 
     // função para cadastrar um projeto
@@ -24,15 +38,17 @@ export default class ProjectRegister extends Component {
         // corpo da requisição
         let project = {
             NomeProjeto: this.state.NomeProjeto,
-            NomeTema: this.state.NomeTema,
-            Descricao: this.state.Descricao
+            IdTema: this.state.IdTema,
+            Descricao: this.state.Descricao,
+            // NomeTema: this.state.NomeTema
         }
 
         // constante para armazenar o valor do token
         const valorToken = await AsyncStorage.getItem('userToken');
+        console.log(project)
 
         // chamada para api - método cadastrar e o corpo da requisição
-        await api.post('/projetos', project, {
+        await api.post('/projeto', project, {
             headers: {
                 'Authorization': 'Bearer ' + valorToken
             }
@@ -46,6 +62,7 @@ export default class ProjectRegister extends Component {
 
                     // retorna uma mensagem 
                     console.warn('Projeto cadastrado !')
+
 
                     // requisição finalizada
                     this.setState({ isLoading: false })
@@ -79,20 +96,20 @@ export default class ProjectRegister extends Component {
 
                     <View style={styles.mainHeaderLine} />
 
-                    <TouchableOpacity                        
+                    <TouchableOpacity
                         onPress={this.logout}
                     >
-                    <Image
-                        source={require('../../assets/img/logout1.png')}
-                        style={styles.tabBarIcon}
-                    />
+                        <Image
+                            source={require('../../assets/img/logout1.png')}
+                            style={styles.tabBarIcon}
+                        />
                     </TouchableOpacity>
 
-                    <Text style={styles.textProfessor}>Cadastre um novo projeto.</Text>
+
 
                 </View>
 
-                
+
 
                 {/* Formulário para o cadastro e buttom */}
                 <View style={styles.mainHeader}>
@@ -105,13 +122,18 @@ export default class ProjectRegister extends Component {
                         onChangeText={NomeProjeto => this.setState({ NomeProjeto })}
                     />
 
-                    <TextInput
+                    <Picker
                         style={styles.inputRegister}
-                        placeholder='Tema'
-                        placeholderTextColor='#B338F5'
-                        keyboardType='text'
-                        onChangeText={NomeTema => this.setState({ NomeTema })}
-                    />
+                        selectedValue={this.state.NomeTema}
+                        onValueChange={(itemValue, itemIndex) =>
+                            this.atualizaTema(itemValue)
+                        }>
+
+                        <Picker.Item label="Selecione o Tema" value="" />
+                        <Picker.Item label="Gestão" value="1" />
+                        <Picker.Item label="HQ's" value="2" />
+                    </Picker>
+
 
                     <TextInput
                         style={styles.inputRegister}
@@ -120,6 +142,8 @@ export default class ProjectRegister extends Component {
                         keyboardType='text'
                         onChangeText={Descricao => this.setState({ Descricao })}
                     />
+
+
 
                     <TouchableOpacity
                         style={styles.btnRegister}
@@ -136,17 +160,13 @@ export default class ProjectRegister extends Component {
 
             </View>
 
-
-
-
-
         );
     }
 }
 
 const styles = StyleSheet.create({
 
-    textProfessor : {
+    textProfessor: {
         color: '#B338F5',
         paddingTop: 15,
         fontFamily: 'Open Sans',
@@ -270,14 +290,14 @@ const styles = StyleSheet.create({
         borderColor: '#8D2DC2',
         borderWidth: 1,
         borderRadius: 4,
-        
+
     },
 
     btnLoginRegister: {
         fontSize: 12,
         color: '#FFF',
         letterSpacing: 6,
-        textTransform: 'uppercase'        
+        textTransform: 'uppercase'
     }
 
 });

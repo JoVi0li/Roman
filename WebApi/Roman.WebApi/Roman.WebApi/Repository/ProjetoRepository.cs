@@ -32,7 +32,7 @@ namespace Roman.WebApi.Repository
         {
             return ctx.Projetos
                 
-            .Include(x => x.IdTemaNavigation)  
+            .Include(x => x.IdTemaNavigation)             
                  
             .ToList();
         }

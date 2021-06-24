@@ -29,6 +29,7 @@ namespace Roman.WebApi.Controllers
         /// </summary>
         /// <param name="NovoProjeto">Objeto do tipo Projeto</param>
         /// <returns>Status Code 201 - Created</returns>
+        
         [HttpPost]
         public IActionResult Post(Projeto NovoProjeto)
         {
@@ -49,6 +50,7 @@ namespace Roman.WebApi.Controllers
         /// Lista todos os projetos
         /// </summary>
         /// <returns>Status Code 200 - Ok E Uma lista de projetos</returns>
+        
         [HttpGet]
         public IActionResult Get()
         {
