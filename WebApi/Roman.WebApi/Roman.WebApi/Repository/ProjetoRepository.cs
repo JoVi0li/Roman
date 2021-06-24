@@ -1,4 +1,5 @@
-﻿using Roman.WebApi.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Roman.WebApi.Contexts;
 using Roman.WebApi.Domain;
 using Roman.WebApi.Interface;
 using System;
@@ -29,7 +30,23 @@ namespace Roman.WebApi.Repository
 
         public List<Projeto> Read()
         {
-            return ctx.Projetos.ToList();
+            return ctx.Projetos
+                
+            .Include(x => x.IdTemaNavigation)
+
+            .Select(x => new Projeto{
+                IdProjeto = x.IdProjeto,
+                NomeProjeto = x.NomeProjeto,
+                Descricao = x.Descricao,
+
+                IdTemaNavigation = new Tema{
+                    NomeTema = x.IdTemaNavigation.NomeTema
+                }
+            })
+
+
+            
+            .ToList();
         }
 
         public Projeto ReadById(int Id)

@@ -12,32 +12,36 @@ export default class ProjectList extends Component {
         }
     }
 
-    // // função para listar os projetos
-    // getProjects = async () => {
+    // função para listar os projetos
+    getProjects = async () => {
 
-    //     // constante para armazenar o valor do token
-    //     const valorToken = await AsyncStorage.getItem('userToken');
+        // constante para armazenar o valor do token
+        const valorToken = await AsyncStorage.getItem('userToken');
 
-    //     // constante para armazenar a resposta da requisição
-    //     const resposta = await api.get('/projetos', {
+        // constante para armazenar a resposta da requisição
+        const resposta = await api.get('/projeto', {
 
-    //         // autorização
-    //         headers: {
-    //             'Authorization': 'Bearer ' + valorToken
-    //         }
-    //     })
+            // autorização
+            headers: {
+                'Authorization': 'Bearer ' + valorToken
+            }
+        })
 
-    //     // atualiza o state da lista com a resposta da requisição
-    //     this.setState({ projectList: resposta.data })
+        // atualiza o state da lista com a resposta da requisição
+        this.setState({ projectList: resposta.data })
 
-    // }
+        console.warn(resposta)
 
-    // // faz a chamada para a função de listar quando a tela é renderizada
-    // componentDidMount() {
+        console.warn(this.state.projectList)
 
-    //     this.getProjects();
+    }
 
-    // }
+    // faz a chamada para a função de listar quando a tela é renderizada
+    componentDidMount() {
+
+        this.getProjects();
+
+    }
 
 
     render() {
@@ -73,7 +77,7 @@ export default class ProjectList extends Component {
                     <FlatList
                         contentContainerStyle={styles.mainBodyContent}
                         data={this.state.projectList}
-                        keyExtractor={item => item.nomeProjeto}
+                        keyExtractor={item => item.IdProjeto}
                         renderItem={this.renderItem}
                     />
 
@@ -88,9 +92,9 @@ export default class ProjectList extends Component {
         <View style={styles.flatItemRow}>
 
             <View style={styles.flatItemContainer}>
-                <Text style={styles.flatItemTitle}></Text>
-                <Text style={styles.flatItemInfo}></Text>
-                <Text style={styles.flatItemInfo}></Text>
+                <Text style={styles.flatItemTitle}>{item.NomeProjeto}</Text>
+                {/* <Text style={styles.flatItemInfo}>{item.IdTemaNavigation.NomeTema}</Text> */}
+                <Text style={styles.flatItemInfo}>{item.Descricao}</Text>
             </View>
 
         </View>

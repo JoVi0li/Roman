@@ -4,10 +4,12 @@ USE Roman
 
 SELECT * FROM TipoUsuario
 
-SELECT * FROM Usuario
+SELECT TipoUsuario.Ne FROM Usuario
 
 SELECT * FROM Equipe
 
-SELECT * FROM Projeto
+SELECT NomeProjeto,NomeTema,Descricao FROM Projeto
+INNER JOIN Tema
+ON Projeto.IdTema = Tema.IdTema
 
 SELECT * FROM Tema

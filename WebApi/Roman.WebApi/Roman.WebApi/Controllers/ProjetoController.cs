@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Roman.WebApi.Domain;
 using Roman.WebApi.Interface;
@@ -13,6 +14,7 @@ namespace Roman.WebApi.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "2")]
     public class ProjetoController : ControllerBase
     {
         private IProjetoRepository _IProjetoRepository { get; set; }
