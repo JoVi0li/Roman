@@ -24,14 +24,14 @@ VALUES				('Desenvolvimento')
 					,('Multimídia'	  );
 GO
 
-INSERT INTO Projeto (IdUsuario,	NomeProjeto, Idtema)
-VALUES				( 2,		'Controle de Estoque', 1);
+INSERT INTO Projeto (IdUsuario,	NomeProjeto, Idtema, Descricao)
+VALUES				( 2,	'Controle de Estoque', 1, 'Programa para gerir empresas' );
 
 GO
 
-INSERT INTO Tema ( NomeTema				,Descricao	,			  Ativo)
-VALUES			('Gestão',	  'Programa para gerir um projeto',		1)
-				,('HQs',	  'Progrma de História em Quadrinhos',  1);
+INSERT INTO Tema ( NomeTema, Ativo)
+VALUES			('Gestão',	1)
+				,('HQs',  1);
 GO
 
 
