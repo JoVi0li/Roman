@@ -10,10 +10,15 @@ const bottomTab = createBottomTabNavigator();
 export default class Main extends Component {
 
     render() {
+
         return (
+
             <View style={styles.main}>
+
                 <bottomTab.Navigator
+
                     initialRouteName='ProjectList'
+
                     tabBarOptions={{
                         showLabel: false,
                         showIcon: true,
@@ -52,7 +57,7 @@ export default class Main extends Component {
                     <bottomTab.Screen name="ProjectList" component={ProjectList} />
 
                     <bottomTab.Screen name="ProjectRegister" component={ProjectRegister} />
-                    
+
                 </bottomTab.Navigator>
 
             </View>
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
 
     main: {
         flex: 1,
-        backgroundColor: '#F1F1F1'
+        backgroundColor: '#FFF'
     },
 
     tabBarIcon: {

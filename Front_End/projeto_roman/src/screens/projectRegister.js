@@ -8,30 +8,67 @@ export default class ProjectRegister extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            theme: '',
-            description: ''
+            NomeProjeto: '',
+            NomeTema: '',
+            description: '',
+            Descricao: false
         }
     }
 
-    // postProjects = async () => {
-    //     const resposta = await api.post('/projetos');
-    //     this.setState({ projectList: resposta.data })
+    // função para cadastrar um projeto
+    postProjects = async () => {        
 
-    // };
+        // requisição em andamento
+        this.setState({ isLoading: true });
 
-    // componentDidMount() {        
-    //     this.postProjects();
-    // };
+        // corpo da requisição
+        let project = {
+            NomeProjeto :  this.state.NomeProjeto,
+            NomeTema : this.state.NomeTema,
+            Descricao : this.state.Descricao
+        }
 
+        // chamada para api - método cadastrar e o corpo da requisição
+        await api.post('/projetos', project, {
+            headers  : {
+                'Authorization': 'Bearer ' + valorToken
+            }
+        })
+        
+        // verifica a resposta da requisição
+        .then(resposta => {
 
+            // caso seja 201
+            if (resposta.status === 201) {
+
+                // retorna uma mensagem 
+                console.warn('Projeto cadastrado !')
+                
+                // requisição finalizada
+                this.setState({ isLoading : false})
+            }
+        })
+
+        // caso ocorra um erro
+        .catch(erro => {
+
+            // exibe uma mensagem 
+            console.warn(erro)
+
+            // requisição finalizada
+            this.setState({ isLoading : false})
+        })
+
+    };    
+
+    // renderiza a tela
     render() {
 
         return (
 
             <View style={styles.main}>
 
-                {/* Cabeçalho - Header */}
+                {/* Header */}
                 <View style={styles.mainHeader}>
                     <View style={styles.mainHeaderRow}>
                         <Text style={styles.mainHeaderText}>Cadastro</Text>
@@ -44,37 +81,38 @@ export default class ProjectRegister extends Component {
                         style={styles.tabBarIcon}
                     />
 
-                </View>                
-
+                </View>
+                
+                {/* Formulário para o cadastro e buttom */}
                 <View style={styles.mainHeader}>
-
+                    
                     <TextInput
                         style={styles.inputRegister}
                         placeholder='Título'
                         placeholderTextColor='#8D2DC2'
                         keyboardType='text'
-                        onChangeText=''
+                        onChangeText={NomeProjeto => this.setState({ NomeProjeto })}
                     />
 
                     <TextInput
                         style={styles.inputRegister}
                         placeholder='Tema'
                         placeholderTextColor='#8D2DC2'
-                        keyboardType='text'                    
-                        onChangeText=''
+                        keyboardType='text'
+                        onChangeText={NomeTema => this.setState({ NomeTema })}
                     />
 
                     <TextInput
                         style={styles.inputRegister}
                         placeholder='Descrição'
                         placeholderTextColor='#8D2DC2'
-                        keyboardType='text'                    
-                        onChangeText=''
+                        keyboardType='text'
+                        onChangeText={Descricao => this.setState({ Descricao })}
                     />
 
                     <TouchableOpacity
                         style={styles.btnRegister}
-                        onPress={this.realizarLogin}
+                        onPress={this.postProjects}
                     >
                         <Image
                             source={require('../../assets/img/cadastro.png')}
@@ -82,8 +120,8 @@ export default class ProjectRegister extends Component {
                         />
 
                     </TouchableOpacity>
-                </View>
 
+                </View>
 
             </View>
 
@@ -125,8 +163,8 @@ const styles = StyleSheet.create({
 
     imgBtnRegister: {
         width: 20,
-        height: 20,  
-              
+        height: 20,
+
     },
 
     // imagem do cabeçalho

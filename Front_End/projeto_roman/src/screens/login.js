@@ -16,8 +16,10 @@ export default class Login extends Component {
     login = async () => {
 
         const response = await api.post('/login', {
+
             email: this.state.email,
             password: this.state.password
+
         })
 
         const token = response.data.token
@@ -47,7 +49,6 @@ export default class Login extends Component {
                     <TextInput
                         style={styles.inputLogin}
                         placeholder='username'
-                        source={require('../../assets/img/login.png')}
                         placeholderTextColor='#FFF'
                         keyboardType='email-address'
                         onChangeText={email => this.setState({ email })}
@@ -63,7 +64,7 @@ export default class Login extends Component {
 
                     <TouchableOpacity
                         style={styles.btnLogin}
-                        onPress={this.realizarLogin}
+                        onPress={this.login}
                     >
                         <Image
                             source={require('../../assets/img/login.png')}

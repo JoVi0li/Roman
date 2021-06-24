@@ -12,15 +12,29 @@ export default class ProjectList extends Component {
         }
     }
 
-    // getProjects = async () => {
-    //     const resposta = await api.get('/projetos');
-    //     this.setState({ projectList: resposta.data })
+    // função para listar os projetos
+    getProjects = async () => {
 
-    // };
+        // constante para armazenar a resposta da requisição
+        const resposta = await api.get('/projetos', {
 
-    // componentDidMount() {        
-    //     this.getProjects();
-    // };
+            // autorização
+            headers: {
+                'Authorization': 'Bearer ' + valorToken
+            }
+        })
+
+        // atualiza o state da lista com a resposta da requisição
+        this.setState({ projectList: resposta.data })
+
+    }
+
+    // faz a chamada para a função de listar quando a tela é renderizada
+    componentDidMount() {
+
+        this.getProjects();
+
+    }
 
 
     render() {
@@ -29,8 +43,9 @@ export default class ProjectList extends Component {
 
             <View style={styles.main}>
 
-                {/* Cabeçalho - Header */}
+                {/* Header */}
                 <View style={styles.mainHeader}>
+
                     <View style={styles.mainHeaderRow}>
                         <Text style={styles.mainHeaderText}>Lista de Projetos</Text>
                     </View>
@@ -44,15 +59,17 @@ export default class ProjectList extends Component {
 
                 </View>
 
-                {/* Corpo - Body - Section
+                {/* Lista */}
                 <View style={styles.mainBody}>
+
                     <FlatList
                         contentContainerStyle={styles.mainBodyContent}
                         data={this.state.projectList}
                         keyExtractor={item => item.nomeProjeto}
                         renderItem={this.renderItem}
                     />
-                </View> */}
+
+                </View>
 
             </View>
         );
@@ -61,15 +78,15 @@ export default class ProjectList extends Component {
     renderItem = ({ item }) => (
 
         <View style={styles.flatItemRow}>
+
             <View style={styles.flatItemContainer}>
-                <Text style={styles.flatItemTitle}>Projeto Gufi</Text>
-                <Text style={styles.flatItemInfo}>Tema React Native</Text>
-                <Text style={styles.flatItemInfo}>Projeto da sprint Front End para mobile</Text>
+                <Text style={styles.flatItemTitle}></Text>
+                <Text style={styles.flatItemInfo}></Text>
+                <Text style={styles.flatItemInfo}></Text>
             </View>
 
         </View>
     )
-
 }
 
 const styles = StyleSheet.create({
@@ -98,14 +115,6 @@ const styles = StyleSheet.create({
         tintColor: '#8D2DC2'
     },
 
-    // imagem do cabeçalho
-    mainHeaderImg: {
-        width: 22,
-        height: 22,
-        tintColor: '#ccc',
-        marginRight: -5,
-        marginTop: -12
-    },
     // texto do cabeçalho
     mainHeaderText: {
         fontSize: 16,
@@ -113,57 +122,51 @@ const styles = StyleSheet.create({
         color: '#8D2DC2',
         fontFamily: 'Open Sans'
     },
+
     // linha de separação do cabeçalho
     mainHeaderLine: {
         width: 180,
         paddingTop: 10,
         borderBottomColor: '#B338F5',
         borderBottomWidth: 1,
-        
-        
-        
     },
-
 
     // conteúdo do body
     mainBody: {
         flex: 4,
         // backgroundColor: 'red'
     },
+
     // conteúdo da lista
     mainBodyContent: {
         paddingTop: 30,
         paddingRight: 50,
         paddingLeft: 50
     },
+
     flatItemRow: {
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderBottomColor: '#ccc',
         marginTop: 30
     },
+
     flatItemContainer: {
         flex: 1
     },
+
     flatItemTitle: {
         fontSize: 16,
         color: 'black',
         fontFamily: 'Open Sans Light'
     },
+
     flatItemInfo: {
         fontSize: 12,
         // #RRGGBB
         // #RGB
         color: '#999',
         lineHeight: 20
-    },
-    flatItemImg: {
-        justifyContent: 'center'
-    },
-    flatItemImgIcon: {
-        width: 26,
-        height: 26,
-        tintColor: '#B727FF'
     }
 
 });
