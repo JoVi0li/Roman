@@ -13,6 +13,7 @@ export default class ProjectList extends Component {
         }
     }
 
+    // função para fazer o logout
     logout = async () => {
         try {
             await AsyncStorage.removeItem('userToken');
@@ -21,8 +22,6 @@ export default class ProjectList extends Component {
             console.warn(error);
         }
     };
-
-
 
     // função para listar os projetos
     getProjects = async () => {
@@ -42,12 +41,12 @@ export default class ProjectList extends Component {
         // atualiza o state da lista com a resposta da requisição
         this.setState({ projectList: resposta.data })
 
+        // exibe a resposta no console
         console.warn(resposta)
-
+        //exibe a lista de projetos no console
         console.warn(this.state.projectList)
 
     }
-
 
     // faz a chamada para a função de listar quando a tela é renderizada
     componentDidMount() {
@@ -55,7 +54,6 @@ export default class ProjectList extends Component {
         this.getProjects();
 
     }
-
 
     render() {
 
@@ -66,20 +64,25 @@ export default class ProjectList extends Component {
                 {/* Header */}
                 <View style={styles.mainHeader}>
 
-                    <View style={styles.mainHeaderRow}>
-                        <Text style={styles.mainHeaderText}>Lista de Projetos</Text>
+                    <View style={styles.contentHeader}>
+
+                        <View >
+                            <Text style={styles.mainHeaderText}>Lista de Projetos</Text>
+                        </View>
+
+
+                        <TouchableOpacity
+                            onPress={this.logout}
+                        >
+                            <Image
+                                source={require('../../assets/img/logout1.png')}
+                                style={styles.iconLogout}
+                            />
+                        </TouchableOpacity>
+
+
+
                     </View>
-
-                    <View style={styles.mainHeaderLine} />
-
-                    <TouchableOpacity
-                        onPress={this.logout}
-                    >
-                        <Image
-                            source={require('../../assets/img/logout1.png')}
-                            style={styles.tabBarIcon}
-                        />
-                    </TouchableOpacity>
 
                     <View>
 
@@ -88,13 +91,11 @@ export default class ProjectList extends Component {
                         >
                             <Image
                                 source={require('../../assets/img/update.png')}
-                                style={styles.tabBarIcon}
+                                style={styles.iconUpdate}
                             />
                         </TouchableOpacity>
 
                     </View>
-
-
 
                 </View>
 
@@ -131,71 +132,66 @@ export default class ProjectList extends Component {
 
 const styles = StyleSheet.create({
 
-    textProfessor: {
-        color: '#B338F5',
-        paddingTop: 15,
-        fontFamily: 'Open Sans',
-        fontSize: 16
-    },
-
     main: {
         flex: 1,
         backgroundColor: '#FFF'
     },
 
-    // cabeçalho
     mainHeader: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: .2,
         // backgroundColor: 'blue'
     },
 
-    mainHeaderRow: {
-        flexDirection: 'row'
+    contentHeader: {
+        flexDirection: 'row',
+        marginTop: 40,
+        // backgroundColor: 'pink',
     },
 
-    tabBarIcon: {
+    iconLogout: {
+        width: 25,
+        height: 25,
+        tintColor: '#561B75',
+        marginLeft: 120
+    },
+
+    iconUpdate: {
         width: 25,
         height: 25,
         marginTop: 15,
-        tintColor: '#B338F5'
+        tintColor: '#561B75',
+        marginLeft: 303
     },
 
-    // texto do cabeçalho
     mainHeaderText: {
-        fontSize: 16,
-        letterSpacing: 2,
-        color: '#B338F5',
-        fontFamily: 'Open Sans'
+        fontSize: 20,
+        color: '#561B75',
+        fontFamily: 'Open Sans',
+        marginLeft: 30,
+        textDecorationLine: 'underline'
     },
 
-    // linha de separação do cabeçalho
-    mainHeaderLine: {
-        width: 180,
-        paddingTop: 10,
-        borderBottomColor: '#B338F5',
-        borderBottomWidth: 1,
-    },
-
-    // conteúdo do body
     mainBody: {
-        flex: 4,
+        flex: 5,
         // backgroundColor: 'red'
     },
 
-    // conteúdo da lista
     mainBodyContent: {
-        paddingTop: 30,
-        paddingRight: 50,
-        paddingLeft: 50
+        paddingTop: 10,
+        paddingRight: 30,
+        paddingLeft: 30
     },
 
     flatItemRow: {
         flexDirection: 'row',
-        borderBottomWidth: 1,
-        borderBottomColor: '#FFF',
-        marginTop: 30
+        borderWidth: 1.5,
+        borderColor: '#B338F5',
+        marginTop: 5,
+        borderRadius: 5,
+        backgroundColor: '#F1F1F1',
+        shadowColor: "#B338F5",
+        shadowOpacity: 0.8,
+        shadowRadius: 2
     },
 
     flatItemContainer: {
@@ -205,16 +201,18 @@ const styles = StyleSheet.create({
     flatItemTitle: {
         fontSize: 16,
         color: '#561B75',
-        fontFamily: 'Open Sans Light'
+        fontFamily: 'Open Sans',
+        paddingLeft: 10
     },
 
     flatItemInfo: {
         fontSize: 12,
         // #RRGGBB
         // #RGB
-        color: '#B338F5',
+        color: '#561B75',
         lineHeight: 20,
-        fontFamily: 'Open Sans Light'
+        fontFamily: 'Open Sans Light',
+        paddingLeft: 10
     }
 
 });
